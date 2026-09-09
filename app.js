@@ -74,7 +74,7 @@
     var amount=parseMoney(value("amount"));
     return{
       client:value("client"),place:value("place"),services:value("services"),
-      exclusions:value("exclusions"),terms:value("terms"),observations:value("observations"),amount:amount,
+      exclusions:value("exclusions"),terms:value("terms"),materialSupplier:value("materialSupplier"),amount:amount,
       amountLabel:formatMoney(amount),amountWords:value("amountWords")||moneyWords(amount),
       techName:value("techName")||"Renee Lacerda",techPhone:value("techPhone"),
       clientSigner:value("clientSigner"),clientDoc:value("clientDoc"),date:value("date")
@@ -185,11 +185,11 @@
 
     newPage();
     heading("3. OBSERVAÇÕES");
-    if(data.observations){
-      paragraph(data.observations);
+    paragraph("01) A equipe executora dos serviços será composta por profissionais treinados e habilitados, em conformidade com as normas da concessionária Equatorial.");
+    if(data.materialSupplier==="contractor"){
+      paragraph("02) Os materiais necessários para a execução dos serviços serão fornecidos pela contratante ("+data.client+"), conforme definido nesta proposta.");
     }else{
-      paragraph("01) A equipe executora será composta por profissionais treinados, observando as normas técnicas e de segurança aplicáveis.");
-      paragraph("02) Qualquer serviço, material ou alteração que não esteja expressamente previsto nesta proposta será considerado adicional e dependerá da aprovação prévia da contratante.");
+      paragraph("02) Os materiais necessários para a execução dos serviços serão fornecidos pela contratada, R.L Serviços Elétricos Ltda, conforme definido nesta proposta.");
     }
     heading("4. VALOR DA PROPOSTA");
     need(25);
