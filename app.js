@@ -85,8 +85,10 @@
     var p=iso.split("-");
     return p[2]+"/"+p[1]+"/"+p[0];
   }
-  function safeFilename(name){
-    return ("Proposta_"+name).normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9_-]+/g,"_")+".pdf";
+  function safeFilename(name,isoDate){
+    var client=String(name||"CLIENTE").replace(/[\\/:*?"<>|]+/g," ").replace(/\s+/g," ").trim()||"CLIENTE";
+    var date=String(isoDate||"").split("-").reverse().join("_")||"SEM_DATA";
+    return "PROPOSTA RL SERVIÇOS - "+client+" - "+date+".pdf";
   }
 
   function buildPdf(data){
@@ -251,7 +253,7 @@
     if(!validate())return;
     try{
       var data=collect();
-      buildPdf(data).save(safeFilename(data.client));
+      buildPdf(data).save(safeFilename(data.client,data.date));
       setStatus("PDF gerado e baixado com sucesso.",false);
     }catch(error){
       console.error(error);
