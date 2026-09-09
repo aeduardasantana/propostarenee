@@ -74,7 +74,7 @@
     var amount=parseMoney(value("amount"));
     return{
       client:value("client"),place:value("place"),services:value("services"),
-      exclusions:value("exclusions"),terms:value("terms"),amount:amount,
+      exclusions:value("exclusions"),terms:value("terms"),observations:value("observations"),amount:amount,
       amountLabel:formatMoney(amount),amountWords:value("amountWords")||moneyWords(amount),
       techName:value("techName")||"Renee Lacerda",techPhone:value("techPhone"),
       clientSigner:value("clientSigner"),clientDoc:value("clientDoc"),date:value("date")
@@ -103,10 +103,6 @@
       page++;
       background();
       y=74;
-      doc.setFont("helvetica","bold");
-      doc.setFontSize(10);
-      doc.text("CONTINUAÇÃO DA PROPOSTA",105,y,{align:"center"});
-      y+=10;
     }
     function need(height){if(y+height>bodyBottom)newPage()}
     function heading(text){
@@ -135,6 +131,33 @@
       });
       y+=3;
     }
+    function signatureBlock(){
+      need(56);
+      y+=9;
+      var lineY=y;
+      doc.setDrawColor(35,38,41);
+      doc.line(25,lineY,93,lineY);
+      doc.line(117,lineY,185,lineY);
+      doc.setFont("helvetica","bold");
+      doc.setFontSize(9.5);
+      doc.text("RESPONSÁVEL TÉCNICO",59,lineY+5,{align:"center"});
+      doc.setFont("helvetica","bolditalic");
+      doc.setFontSize(11);
+      doc.text(data.techName,59,lineY+11,{align:"center"});
+      doc.setFont("helvetica","normal");
+      doc.setFontSize(8.5);
+      if(data.techPhone)doc.text("Fone "+data.techPhone,59,lineY+16,{align:"center"});
+      doc.setFont("helvetica","bold");
+      doc.setFontSize(9.5);
+      doc.text("RESPONSÁVEL PELO EMPREENDIMENTO",151,lineY+5,{align:"center"});
+      doc.setFont("helvetica","normal");
+      doc.setFontSize(9);
+      if(data.clientSigner)doc.text(data.clientSigner,151,lineY+11,{align:"center"});
+      if(data.clientDoc)doc.text("CPF/CNPJ: "+data.clientDoc,151,lineY+16,{align:"center"});
+      doc.setFontSize(9.5);
+      doc.text("Goiânia, "+formatDate(data.date)+".",105,lineY+31,{align:"center"});
+    }
+
     background();
     doc.setFont("helvetica","bold");
     doc.setFontSize(15);
@@ -146,7 +169,6 @@
     doc.setFont("helvetica","normal");
     doc.text(data.place,left,y); y+=10;
     paragraph("A R.L Serviços Elétricos Ltda apresenta esta proposta comercial para a execução dos serviços descritos a seguir, comprometendo-se com a qualidade, a organização e o cumprimento das normas técnicas e de segurança aplicáveis.");
-
     heading("1. DESCRIÇÃO DOS SERVIÇOS E DA MONTAGEM");
     paragraph(data.services);
     if(data.exclusions){
@@ -154,14 +176,21 @@
       paragraph(data.exclusions);
     }
 
-    heading("2. CONDIÇÕES GERAIS DE EXECUÇÃO");
+    newPage();
+    heading("2. CONDIÇÕES COMERCIAIS E GERAIS");
     paragraph("A execução será realizada por profissionais treinados e orientados quanto às normas técnicas e de segurança aplicáveis. Quando o serviço envolver instalações vinculadas à rede de distribuição de energia, serão observadas as exigências da concessionária responsável.");
-    paragraph("A responsabilidade pelo fornecimento de materiais e equipamentos seguirá o que estiver definido na descrição dos serviços. Qualquer serviço, material ou alteração não previsto será considerado adicional e dependerá da aprovação prévia da contratante.");
-
-    heading("3. CONDIÇÕES COMERCIAIS");
+    heading("CONDIÇÕES COMERCIAIS");
     paragraph(data.terms);
-    paragraph("Os valores incluem os impostos, as taxas, os encargos sociais e as despesas diretamente relacionadas aos serviços e fornecimentos expressamente previstos nesta proposta.");
+    paragraph("A responsabilidade pelo fornecimento de materiais e equipamentos seguirá o que estiver definido na descrição dos serviços. Os valores incluem os impostos, as taxas, os encargos sociais e as despesas diretamente relacionadas aos serviços e fornecimentos expressamente previstos nesta proposta.");
 
+    newPage();
+    heading("3. OBSERVAÇÕES");
+    if(data.observations){
+      paragraph(data.observations);
+    }else{
+      paragraph("01) A equipe executora será composta por profissionais treinados, observando as normas técnicas e de segurança aplicáveis.");
+      paragraph("02) Qualquer serviço, material ou alteração que não esteja expressamente previsto nesta proposta será considerado adicional e dependerá da aprovação prévia da contratante.");
+    }
     heading("4. VALOR DA PROPOSTA");
     need(25);
     doc.setDrawColor(60,64,68);
@@ -174,36 +203,8 @@
     var words=doc.splitTextToSize("("+data.amountWords+")",maxWidth-12);
     doc.text(words,left+6,y+11);
     y+=27+(words.length-1)*4;
-
     paragraph("A assinatura desta proposta representa a concordância com os serviços, as condições comerciais, o valor apresentado e as responsabilidades estabelecidas.");
-
-    need(56);
-    y+=9;
-    var lineY=y;
-    doc.setDrawColor(35,38,41);
-    doc.line(25,lineY,93,lineY);
-    doc.line(117,lineY,185,lineY);
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(9.5);
-    doc.text("RESPONSÁVEL TÉCNICO",59,lineY+5,{align:"center"});
-    doc.setFont("helvetica","bolditalic");
-    doc.setFontSize(11);
-    doc.text(data.techName,59,lineY+11,{align:"center"});
-    doc.setFont("helvetica","normal");
-    doc.setFontSize(8.5);
-    if(data.techPhone)doc.text("Fone "+data.techPhone,59,lineY+16,{align:"center"});
-
-    doc.setFont("helvetica","bold");
-    doc.setFontSize(9.5);
-    doc.text("RESPONSÁVEL PELO EMPREENDIMENTO",151,lineY+5,{align:"center"});
-    doc.setFont("helvetica","normal");
-    doc.setFontSize(9);
-    if(data.clientSigner)doc.text(data.clientSigner,151,lineY+11,{align:"center"});
-    if(data.clientDoc)doc.text("CPF/CNPJ: "+data.clientDoc,151,lineY+16,{align:"center"});
-
-    doc.setFont("helvetica","normal");
-    doc.setFontSize(9.5);
-    doc.text("Goiânia, "+formatDate(data.date)+".",105,lineY+31,{align:"center"});
+    signatureBlock();
 
     var total=doc.getNumberOfPages();
     for(var i=1;i<=total;i++){
