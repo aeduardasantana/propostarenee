@@ -29,7 +29,6 @@
       <legend>1. Descrição dos serviços</legend>
       <label for="services">Serviços e montagem</label>
       <textarea id="services" required placeholder="Descreva cada serviço em uma linha."></textarea>
-      <small>Informe aqui também quem fornecerá materiais e equipamentos.</small>
       <label for="exclusions">Itens não incluídos (opcional)</label>
       <textarea id="exclusions" class="short" placeholder="Ex.: Não está incluída a montagem do Quadro CCM."></textarea>
     </fieldset>
@@ -42,9 +41,12 @@
 
     <fieldset>
       <legend>3. Observações</legend>
-      <label for="observations">Observações da proposta</label>
-      <textarea id="observations" class="short" placeholder="Inclua observações específicas sobre a execução, materiais ou limitações."></textarea>
-      <small>Se ficar em branco, o PDF usará as observações-padrão da empresa.</small>
+      <label for="materialSupplier">Fornecimento dos materiais</label>
+      <select id="materialSupplier">
+        <option value="contractor">Materiais fornecidos pela contratante</option>
+        <option value="rl">Materiais fornecidos pela R.L Serviços Elétricos Ltda</option>
+      </select>
+      <small>As duas observações-padrão serão incluídas automaticamente antes do valor.</small>
     </fieldset>
 
     <fieldset>
