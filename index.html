@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gerador de Propostas | R.L Serviços Elétricos</title>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1>Gerador de Propostas</h1>
+    <p>R.L SERVIÇOS ELÉTRICOS LTDA</p>
+  </div>
+  <strong>CNPJ 02.794.871/0001-50</strong>
+</header>
+<main>
+  <form id="proposalForm" class="panel">
+    <fieldset>
+      <legend>Identificação</legend>
+      <div class="two">
+        <div><label for="client">Cliente</label><input id="client" required placeholder="Nome ou razão social"></div>
+        <div><label for="place">Cidade - UF</label><input id="place" required placeholder="Goiânia - GO"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>1. Descrição dos serviços</legend>
+      <label for="services">Serviços e montagem</label>
+      <textarea id="services" required placeholder="Descreva cada serviço em uma linha."></textarea>
+      <small>Informe aqui também quem fornecerá materiais e equipamentos.</small>
+      <label for="exclusions">Itens não incluídos (opcional)</label>
+      <textarea id="exclusions" class="short" placeholder="Ex.: Não está incluída a montagem do Quadro CCM."></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Condições comerciais</legend>
+      <label for="terms">Forma e condições de pagamento</label>
+      <textarea id="terms" required placeholder="Ex.: 50% à vista&#10;50% na entrega dos serviços"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Valor da proposta</legend>
+      <div class="two">
+        <div><label for="amount">Valor total</label><input id="amount" required inputmode="decimal" placeholder="R$ 14.500,00"></div>
+        <div><label for="amountWords">Valor por extenso</label><input id="amountWords" placeholder="Preenchimento automático"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Assinaturas independentes</legend>
+      <div class="two">
+        <div>
+          <label for="techName">Responsável técnico</label>
+          <input id="techName" value="Renee Lacerda">
+          <label for="techPhone">Telefone</label>
+          <input id="techPhone" value="(062) 9648-2209 / 9237-2800">
+        </div>
+        <div>
+          <label for="clientSigner">Responsável pelo empreendimento</label>
+          <input id="clientSigner" placeholder="Pode ficar em branco para assinatura manual">
+          <label for="clientDoc">CPF/CNPJ (opcional)</label>
+          <input id="clientDoc" placeholder="Pode ficar em branco">
+        </div>
+      </div>
+      <label for="date">Data ao final da proposta</label>
+      <input id="date" type="date" required>
+    </fieldset>
+
+    <div class="actions">
+      <button type="button" id="previewBtn" class="secondary">Visualizar PDF</button>
+      <button type="submit" class="primary">Baixar PDF</button>
+    </div>
+    <p id="status" role="status"></p>
+  </form>
+
+  <section class="panel preview">
+    <div class="previewTitle"><strong>Pré-visualização</strong><span>O arquivo não é armazenado</span></div>
+    <iframe id="pdfPreview" title="Pré-visualização da proposta"></iframe>
+    <div id="empty">Preencha os campos e clique em <strong>Visualizar PDF</strong>.</div>
+  </section>
+</main>
+<img id="letterhead" src="assets/papel-timbrado.png" alt="" hidden>
+<script src="app.js"></script>
+</body>
+</html>
