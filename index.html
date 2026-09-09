@@ -41,7 +41,14 @@
     </fieldset>
 
     <fieldset>
-      <legend>3. Valor da proposta</legend>
+      <legend>3. Observações</legend>
+      <label for="observations">Observações da proposta</label>
+      <textarea id="observations" class="short" placeholder="Inclua observações específicas sobre a execução, materiais ou limitações."></textarea>
+      <small>Se ficar em branco, o PDF usará as observações-padrão da empresa.</small>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Valor da proposta</legend>
       <div class="two">
         <div><label for="amount">Valor total</label><input id="amount" required inputmode="decimal" placeholder="R$ 14.500,00"></div>
         <div><label for="amountWords">Valor por extenso</label><input id="amountWords" placeholder="Preenchimento automático"></div>
